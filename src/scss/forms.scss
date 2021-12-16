@@ -1,6 +1,6 @@
 
 
-.form__label {
+.form-label {
   display: flex;
   font-size: 16px;
   font-weight: lighter;
@@ -8,7 +8,7 @@
   width: 100%;
 }
 
-.form__input {
+.form-input {
   border-radius: 5px;
   display: flex;
   height: 32px;
@@ -17,13 +17,13 @@
   width: 100%;
 }
 
-.form__alert {
+.form-alert {
   color: $royal-red;
   font-size: 14px;
   font-weight: lighter;
 }
 
-.form__submit {
+.form-submit {
   align-items: center;
   background-color: $las-palmas;
   border-radius: 5px;

@@ -13,7 +13,7 @@ function SignUp() {
           <div className={styles.logo} />
           <SignUpForm />
           <div>
-            <button className="button__redirect" type="button">
+            <button className="button-redirect" type="button">
               {i18next.t('SignUp:loginButton')}
             </button>
           </div>

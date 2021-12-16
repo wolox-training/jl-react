@@ -17,10 +17,10 @@ function SignUpForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <label className="form__label">{i18next.t('SignUp:firstName')}</label>
-      {errors.firstName && <span className="form__alert">{errors.firstName.message}</span>}
+      <label className="form-label">{i18next.t('SignUp:firstName')}</label>
+      {errors.firstName && <span className="form-alert">{errors.firstName.message}</span>}
       <input
-        className="form__input"
+        className="form-input"
         name="firstName"
         type="text"
         ref={register({
@@ -28,10 +28,10 @@ function SignUpForm() {
         })}
       />
 
-      <label className="form__label">{i18next.t('SignUp:lastName')}</label>
-      {errors.lastName && <span className="form__alert">{errors.lastName.message}</span>}
+      <label className="form-label">{i18next.t('SignUp:lastName')}</label>
+      {errors.lastName && <span className="form-alert">{errors.lastName.message}</span>}
       <input
-        className="form__input"
+        className="form-input"
         name="lastName"
         type="text"
         ref={register({
@@ -39,10 +39,10 @@ function SignUpForm() {
         })}
       />
 
-      <label className="form__label">{i18next.t('SignUp:email')}</label>
-      {errors.email && <span className="form__alert">{errors.email.message}</span>}
+      <label className="form-label">{i18next.t('SignUp:email')}</label>
+      {errors.email && <span className="form-alert">{errors.email.message}</span>}
       <input
-        className="form__input"
+        className="form-input"
         name="email"
         type="text"
         ref={register({
@@ -54,10 +54,10 @@ function SignUpForm() {
         })}
       />
 
-      <label className="form__label">{i18next.t('SignUp:password')}</label>
-      {errors.password && <span className="form__alert">{errors.password.message}</span>}
+      <label className="form-label">{i18next.t('SignUp:password')}</label>
+      {errors.password && <span className="form-alert">{errors.password.message}</span>}
       <input
-        className="form__input"
+        className="form-input"
         name="password"
         type="password"
         ref={register({
@@ -69,12 +69,12 @@ function SignUpForm() {
         })}
       />
 
-      <label className="form__label">{i18next.t('SignUp:passwordConfirmation')}</label>
+      <label className="form-label">{i18next.t('SignUp:passwordConfirmation')}</label>
       {errors.passwordConfirmation && (
-        <span className="form__alert">{errors.passwordConfirmation.message}</span>
+        <span className="form-alert">{errors.passwordConfirmation.message}</span>
       )}
       <input
-        className="form__input"
+        className="form-input"
         name="passwordConfirmation"
         type="password"
         ref={register({
@@ -86,7 +86,7 @@ function SignUpForm() {
         })}
       />
 
-      <button className="form__submit" type="submit">
+      <button className="form-submit" type="submit">
         {i18next.t('SignUp:signUpButton')}
       </button>
     </form>
