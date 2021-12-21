@@ -1,4 +1,5 @@
 import { create } from 'apisauce';
+import { camelCase, snakeCase, mapKeys } from 'lodash';
 
 const baseURL = process.env.REACT_APP_API_BASE_URL || 'http://wolox.com';
 
@@ -36,5 +37,17 @@ export const apiSetup = dispatch => {
     }
   });
 };
+
+api.addRequestTransform(req => {
+  if (req.data) {
+    req.data = mapKeys(req.data, (_, k) => snakeCase(k));
+  }
+});
+
+api.addResponseTransform(res => {
+  if (res.data) {
+    res.data = mapKeys(res.data, (_, k) => camelCase(k));
+  }
+});
 
 export default api;
