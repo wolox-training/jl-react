@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import i18next from 'i18next';
 
 import { User } from '../../../utils/types';
 import { emailRegex, passwordRegex } from '../../../constants/regex';
+import { signUp } from '../../../services/UsersService';
+import { useLazyRequest } from '../../../hooks/useRequest';
 
 function SignUpForm() {
   const {
@@ -12,8 +14,14 @@ function SignUpForm() {
     getValues,
     formState: { errors }
   } = useForm<User>();
-  // eslint-disable-next-line no-console
-  const onSubmit = () => console.log(getValues());
+  const [errorMsg, setErrorMsg] = useState('');
+  const [, , error, sendRequest] = useLazyRequest({
+    request: signUp,
+    // eslint-disable-next-line no-console
+    withPostSuccess: data => console.log('data', data),
+    withPostFailure: () => setErrorMsg(i18next.t('FormValidations:network'))
+  });
+  const onSubmit = () => sendRequest(getValues());
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -85,6 +93,8 @@ function SignUpForm() {
           }
         })}
       />
+
+      {error && <span className="form-alert">{errorMsg}</span>}
 
       <button className="form-submit" type="submit">
         {i18next.t('SignUp:signUpButton')}
