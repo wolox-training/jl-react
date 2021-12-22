@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import i18next from 'i18next';
+import { useMutation } from 'react-query';
 
 import { User } from '../../../utils/types';
 import { emailRegex, passwordRegex } from '../../../constants/regex';
 import { signUp } from '../../../services/UsersService';
-import { useLazyRequest } from '../../../hooks/useRequest';
+import Loading from '../../Spinner/components/loading';
 
 function SignUpForm() {
   const {
@@ -15,13 +16,14 @@ function SignUpForm() {
     formState: { errors }
   } = useForm<User>();
   const [errorMsg, setErrorMsg] = useState('');
-  const [, , error, sendRequest] = useLazyRequest({
-    request: signUp,
+  const { isLoading, isError, mutate } = useMutation((data: User) => signUp(data), {
     // eslint-disable-next-line no-console
-    withPostSuccess: data => console.log('data', data),
-    withPostFailure: () => setErrorMsg(i18next.t('FormValidations:network'))
+    onSuccess: res => console.log('res', res),
+    onError: () => {
+      setErrorMsg(i18next.t('FormValidations:network'));
+    }
   });
-  const onSubmit = () => sendRequest(getValues());
+  const onSubmit = () => mutate(getValues());
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -94,7 +96,13 @@ function SignUpForm() {
         })}
       />
 
-      {error && <span className="form-alert">{errorMsg}</span>}
+      {isError && <span className="form-alert">{errorMsg}</span>}
+
+      {isLoading && (
+        <div className="row center full-width">
+          <Loading name="circle" />
+        </div>
+      )}
 
       <button className="form-submit" type="submit">
         {i18next.t('SignUp:signUpButton')}

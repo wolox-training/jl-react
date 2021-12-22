@@ -45,8 +45,12 @@ api.addRequestTransform(req => {
 });
 
 api.addResponseTransform(res => {
-  if (res.data) {
-    res.data = mapKeys(res.data, (_, k) => camelCase(k));
+  if (res.ok) {
+    if (res.data) {
+      res.data = mapKeys(res.data, (_, k) => camelCase(k));
+    }
+  } else {
+    throw { problem: res.problem, status: res.status, data: res.data };
   }
 });
 
