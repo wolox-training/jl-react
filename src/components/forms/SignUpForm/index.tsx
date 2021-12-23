@@ -3,10 +3,10 @@ import { useForm } from 'react-hook-form';
 import i18next from 'i18next';
 import { useMutation } from 'react-query';
 
-import { User } from '../../../utils/types';
-import { emailRegex, passwordRegex } from '../../../constants/regex';
-import { signUp } from '../../../services/UsersService';
-import Loading from '../../Spinner/components/loading';
+import { User } from 'utils/types';
+import { emailRegex, passwordRegex } from 'constants/regex';
+import { signUp } from 'services/UsersService';
+import Loading from 'components/Spinner/components/loading';
 
 function SignUpForm() {
   const {
