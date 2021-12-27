@@ -17,13 +17,17 @@ function SignUpForm() {
   } = useForm<User>();
   const [errorMsg, setErrorMsg] = useState('');
   const { isLoading, isError, mutate } = useMutation((data: User) => signUp(data), {
-    // eslint-disable-next-line no-console
-    onSuccess: res => console.log('res', res),
+    onSuccess: res => {
+      // eslint-disable-next-line no-console
+      console.log('res', res);
+    },
     onError: () => {
       setErrorMsg(i18next.t('FormValidations:network'));
     }
   });
-  const onSubmit = () => mutate(getValues());
+  const onSubmit = () => {
+    mutate(getValues());
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
