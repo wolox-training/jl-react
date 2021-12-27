@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import i18next from 'i18next';
+import { useMutation } from 'react-query';
 
-import { User } from '../../../utils/types';
-import { emailRegex, passwordRegex } from '../../../constants/regex';
+import { User } from 'utils/types';
+import { emailRegex, passwordRegex } from 'constants/regex';
+import { signUp } from 'services/UsersService';
+import Loading from 'components/Spinner/components/loading';
 
 function SignUpForm() {
   const {
@@ -12,8 +15,19 @@ function SignUpForm() {
     getValues,
     formState: { errors }
   } = useForm<User>();
-  // eslint-disable-next-line no-console
-  const onSubmit = () => console.log(getValues());
+  const [errorMsg, setErrorMsg] = useState('');
+  const { isLoading, isError, mutate } = useMutation((data: User) => signUp(data), {
+    onSuccess: res => {
+      // eslint-disable-next-line no-console
+      console.log('res', res);
+    },
+    onError: () => {
+      setErrorMsg(i18next.t('FormValidations:network'));
+    }
+  });
+  const onSubmit = () => {
+    mutate(getValues());
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -85,6 +99,14 @@ function SignUpForm() {
           }
         })}
       />
+
+      {isError && <span className="form-alert">{errorMsg}</span>}
+
+      {isLoading && (
+        <div className="row center full-width">
+          <Loading name="circle" />
+        </div>
+      )}
 
       <button className="form-submit" type="submit">
         {i18next.t('SignUp:signUpButton')}

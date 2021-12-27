@@ -1,7 +1,7 @@
 import React from 'react';
 import i18next from 'i18next';
 
-import SignUpForm from '../../components/forms/SignUpForm';
+import SignUpForm from 'components/forms/SignUpForm';
 
 import styles from './styles.module.scss';
 
