@@ -94,4 +94,18 @@ describe('SignUp', () => {
       await waitFor(() => expect(mockHistoryPush).toHaveBeenCalledWith('/'));
     });
   });
+
+  describe('when click on loginButton', () => {
+    it('should redirect to / path', async () => {
+      // WHEN
+      wrapper
+        .find('.button-redirect')
+        .hostNodes()
+        .simulate('click');
+
+      // THEN
+      // eslint-disable-next-line max-nested-callbacks
+      await waitFor(() => expect(mockHistoryPush).toHaveBeenCalledWith('/'));
+    });
+  });
 });
