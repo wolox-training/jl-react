@@ -2,27 +2,13 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { User } from 'utils/types';
-
 import SignUpForm from '.';
 
+import { WRONG_USER, VALID_USER } from 'constants/mock-users';
+
 const MAX_REQUIRED_MESSAGES = 5;
-const WRONG_USER: User = {
-  firstName: '',
-  lastName: '',
-  email: 'wrong@%email.co',
-  password: 'A1',
-  passwordConfirmation: 'A1_'
-};
-const VALID_USER: User = {
-  firstName: 'Julián',
-  lastName: 'Lopera',
-  email: 'test@wolox.co',
-  password: 'A1234567',
-  passwordConfirmation: 'A1234567'
-};
-// eslint-disable-next-line no-console
-const onValid = jest.fn((user: User) => console.log(user));
+
+const onValid = jest.fn();
 
 describe('SignUpForm component', () => {
   beforeEach(() => {
