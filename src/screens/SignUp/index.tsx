@@ -39,7 +39,7 @@ function SignUp() {
               {i18next.t('SignUp:loginButton')}
             </button>
           </div>
-          {isError && <span className="form-alert">{errorMsg}</span>}
+          {isError && <span className="form-alert row center">{errorMsg}</span>}
           {isLoading && (
             <div className="row center full-width">
               <Loading name="circle" />
