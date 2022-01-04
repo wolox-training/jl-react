@@ -1,22 +1,97 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { waitFor } from '@testing-library/react';
+import { mount } from 'enzyme';
+import { rest } from 'msw';
+import { setupServer } from 'msw/node';
+import { MemoryRouter } from 'react-router-dom';
+
+import SignUpForm from 'components/forms/SignUpForm';
+import { User } from 'utils/types';
+import { VALID_USER, USER_PROP_INDEXES } from 'constants/mock-users';
 
 import SignUp from '.';
 
+const server = setupServer(
+  rest.post<User, User>(`${process.env.REACT_APP_API_BASE_URL}/users`, (req, res, ctx) => {
+    const { firstName, lastName, email, password, passwordConfirmation } = req.body;
+
+    return res(
+      ctx.json({
+        firstName,
+        lastName,
+        email,
+        password,
+        passwordConfirmation
+      })
+    );
+  })
+);
+const mockHistoryPush = jest.fn();
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useHistory: () => ({
+    push: mockHistoryPush
+  })
+}));
+
 describe('SignUp', () => {
-  it('test', async () => {
-    // GIVEN
-    const queryClient = new QueryClient();
-    render(
+  // eslint-disable-next-line init-declarations
+  let wrapper: any;
+  const queryClient = new QueryClient();
+
+  beforeAll(() => {
+    wrapper = mount(
       <QueryClientProvider client={queryClient}>
-        <SignUp />
+        <MemoryRouter initialEntries={['/']}>
+          <SignUp />
+        </MemoryRouter>
       </QueryClientProvider>
     );
+    server.listen();
+  });
 
-    // TODO: here comes the test
-    await waitFor(() => {
-      expect(screen.getByText('...')).toBeInTheDocument();
+  afterAll(() => {
+    server.close();
+  });
+
+  it('renders one <SignUpForm /> component', () => {
+    expect(wrapper.find(SignUpForm)).toHaveLength(1);
+  });
+
+  describe('when inputs are valid', () => {
+    it('test', async () => {
+      // GIVEN
+      wrapper
+        .find('.form-input')
+        .at(USER_PROP_INDEXES.firstName)
+        .instance().value = VALID_USER.firstName;
+      wrapper
+        .find('.form-input')
+        .at(USER_PROP_INDEXES.lastName)
+        .instance().value = VALID_USER.lastName;
+      wrapper
+        .find('.form-input')
+        .at(USER_PROP_INDEXES.email)
+        .instance().value = VALID_USER.email;
+      wrapper
+        .find('.form-input')
+        .at(USER_PROP_INDEXES.password)
+        .instance().value = VALID_USER.password;
+      wrapper
+        .find('.form-input')
+        .at(USER_PROP_INDEXES.passwordConfirmation)
+        .instance().value = VALID_USER.passwordConfirmation;
+
+      // WHEN
+      wrapper
+        .find('.form-submit')
+        .hostNodes()
+        .simulate('submit');
+
+      // THEN
+      // eslint-disable-next-line max-nested-callbacks
+      await waitFor(() => expect(mockHistoryPush).toHaveBeenCalledWith('/'));
     });
   });
 });
