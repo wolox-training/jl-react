@@ -4,5 +4,5 @@ i18next.addResources('es', 'Login', {
   email: 'Email',
   password: 'Password',
   loginButton: 'Login',
-  signUpButton: 'Sign Up',
+  signUpButton: 'Sign Up'
 });
