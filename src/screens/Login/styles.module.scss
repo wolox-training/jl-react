@@ -1,0 +1,45 @@
+@import '../../scss/variables/colors';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+.wrapper {
+  align-items: center;
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  width: 100%;
+}
+
+.card {
+  background-color: $white-smoke;
+  border-top: 8px solid $deep-sky-blue;
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  padding: 28px 24px 0;
+  width: 100%;
+}
+
+.logo {
+  display: flex;
+  height: 70px;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+
+  &::after {
+    background-image: url(../../assets/LogoWolox.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    content: '';
+    height: inherit;
+    position: absolute;
+    width: 212px;
+  }
+}
