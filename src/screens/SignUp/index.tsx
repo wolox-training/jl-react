@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import i18next from 'i18next';
 import { useMutation } from 'react-query';
+import { useHistory } from 'react-router-dom';
 
 import SignUpForm from 'components/forms/SignUpForm';
 import { User } from 'utils/types';
@@ -10,11 +11,11 @@ import Loading from 'components/Spinner/components/loading';
 import styles from './styles.module.scss';
 
 function SignUp() {
+  const history = useHistory();
   const [errorMsg, setErrorMsg] = useState('');
   const { isLoading, isError, mutate } = useMutation((data: User) => signUp(data), {
-    onSuccess: res => {
-      // eslint-disable-next-line no-console
-      console.log('res', res);
+    onSuccess: () => {
+      history.push('/');
     },
     onError: () => {
       setErrorMsg(i18next.t('FormValidations:network'));
@@ -23,7 +24,6 @@ function SignUp() {
   const onValid = (user: User) => {
     mutate(user);
   };
-
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
