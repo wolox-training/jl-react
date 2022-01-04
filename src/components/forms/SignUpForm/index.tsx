@@ -16,11 +16,9 @@ function SignUpForm({ onValid }: SignUpFormProps) {
     getValues,
     formState: { errors }
   } = useForm<User>();
-  const a = 'hoal';
 
   return (
     <form onSubmit={handleSubmit(onValid)}>
-      <span>{a}</span>
       <label htmlFor="firstName" className="form-label">
         {i18next.t('SignUp:firstName')}
       </label>
