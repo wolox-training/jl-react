@@ -4,4 +4,4 @@ import { User, UserCredentials } from 'utils/types';
 export const signUp = (userPayload: User) => api.post('/users', userPayload);
 
 export const login = (userCredentialsPayload: UserCredentials) =>
-  api.post('/users/sign_in', userCredentialsPayload);
+  api.post('/users/sign_in', userCredentialsPayload).then(res => res.headers && res.headers['access-token']);
