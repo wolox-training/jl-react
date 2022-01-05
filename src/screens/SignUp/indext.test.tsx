@@ -6,7 +6,6 @@ import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import { MemoryRouter } from 'react-router-dom';
 
-import SignUpForm from 'components/forms/SignUpForm';
 import { User } from 'utils/types';
 import { VALID_USER, USER_PROP_INDEXES } from 'constants/mock-users';
 
@@ -55,12 +54,8 @@ describe('SignUp', () => {
     server.close();
   });
 
-  it('renders one <SignUpForm /> component', () => {
-    expect(wrapper.find(SignUpForm)).toHaveLength(1);
-  });
-
   describe('when inputs are valid', () => {
-    it('test', async () => {
+    it('should redirect to / path', async () => {
       wrapper
         .find('.form-input')
         .at(USER_PROP_INDEXES.firstName)
