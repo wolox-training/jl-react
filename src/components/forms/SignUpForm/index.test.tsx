@@ -34,7 +34,7 @@ describe('SignUpForm component', () => {
       userEvent.click(submitButton);
 
       const validationError = await screen.findByText(/FormValidations:email/);
-      expect(validationError).toBeTruthy();
+      expect(validationError).toBeInTheDocument();
     });
 
     it('password field should display an error', async () => {
@@ -44,7 +44,7 @@ describe('SignUpForm component', () => {
       userEvent.click(submitButton);
 
       const validationError = await screen.findByText(/FormValidations:password/);
-      expect(validationError).toBeTruthy();
+      expect(validationError).toBeInTheDocument();
     });
 
     it('passwordConfirmation field should display an error', async () => {
@@ -55,7 +55,7 @@ describe('SignUpForm component', () => {
       userEvent.click(submitButton);
 
       const validationError = await screen.findByText(/FormValidations:passwordConfirmation/);
-      expect(validationError).toBeTruthy();
+      expect(validationError).toBeInTheDocument();
     });
 
     it('should onValid have not been called', async () => {
