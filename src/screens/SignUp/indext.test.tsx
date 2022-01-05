@@ -61,7 +61,6 @@ describe('SignUp', () => {
 
   describe('when inputs are valid', () => {
     it('test', async () => {
-      // GIVEN
       wrapper
         .find('.form-input')
         .at(USER_PROP_INDEXES.firstName)
@@ -83,13 +82,11 @@ describe('SignUp', () => {
         .at(USER_PROP_INDEXES.passwordConfirmation)
         .instance().value = VALID_USER.passwordConfirmation;
 
-      // WHEN
       wrapper
         .find('.form-submit')
         .hostNodes()
         .simulate('submit');
 
-      // THEN
       // eslint-disable-next-line max-nested-callbacks
       await waitFor(() => expect(mockHistoryPush).toHaveBeenCalledWith('/'));
     });
@@ -97,13 +94,11 @@ describe('SignUp', () => {
 
   describe('when click on loginButton', () => {
     it('should redirect to / path', async () => {
-      // WHEN
       wrapper
         .find('.button-redirect')
         .hostNodes()
         .simulate('click');
 
-      // THEN
       // eslint-disable-next-line max-nested-callbacks
       await waitFor(() => expect(mockHistoryPush).toHaveBeenCalledWith('/'));
     });
