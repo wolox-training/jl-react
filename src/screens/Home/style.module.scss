@@ -1,0 +1,30 @@
+@import '../../scss/variables/colors';
+
+.nav-bar {
+  align-items: center;
+  background-color: $white;
+  border-top: 4px solid $deep-sky-blue;
+  box-shadow: 0 4px 10px 0 rgba($black, 0.5);
+  display: flex;
+  height: 70px;
+  justify-content: space-around;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+
+  
+}
+
+.logo {
+  width: 212px;
+
+  &-image {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.log-out {
+  font-size: 18px;
+}

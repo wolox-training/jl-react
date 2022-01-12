@@ -16,7 +16,6 @@ function Login() {
   const [errorMsg, setErrorMsg] = useState('');
   const { isLoading, isError, mutate } = useMutation((data: UserCredentials) => login(data), {
     onSuccess: res => {
-      // eslint-disable-next-line no-console
       LocalStorageService.setValue('token', res.headers && res.headers['access-token']);
       history.push('/home');
     },
