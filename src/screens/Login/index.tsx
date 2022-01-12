@@ -7,6 +7,7 @@ import Loading from 'components/Spinner/components/loading';
 import LoginForm from 'components/Forms/LoginForm';
 import { UserCredentials } from 'utils/types';
 import { login } from 'services/UsersService';
+import LocalStorageService from 'services/LocalStorageService';
 
 import styles from './styles.module.scss';
 
@@ -16,7 +17,7 @@ function Login() {
   const { isLoading, isError, mutate } = useMutation((data: UserCredentials) => login(data), {
     onSuccess: res => {
       // eslint-disable-next-line no-console
-      console.log('access-token: ', res.headers && res.headers['access-token']);
+      LocalStorageService.setValue('token', res.headers && res.headers['access-token']);
       history.push('/home');
     },
     onError: () => {
