@@ -1,5 +1,6 @@
 import SignUp from 'screens/SignUp';
 import Login from 'screens/Login';
+import Home from 'screens/Home';
 
 export const ROUTES = [
   {
@@ -11,5 +12,10 @@ export const ROUTES = [
     path: '/sign_up',
     name: 'signUp',
     component: SignUp
+  },
+  {
+    path: '/home',
+    name: 'home',
+    component: Home
   }
 ];
