@@ -6,16 +6,19 @@ export const ROUTES = [
   {
     path: '/',
     name: 'login',
-    component: Login
+    component: Login,
+    isPublic: true
   },
   {
     path: '/sign_up',
     name: 'signUp',
-    component: SignUp
+    component: SignUp,
+    isPublic: true
   },
   {
     path: '/home',
     name: 'home',
-    component: Home
+    component: Home,
+    isPublic: false
   }
 ];
