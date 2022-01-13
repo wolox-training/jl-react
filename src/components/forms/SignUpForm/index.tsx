@@ -1,39 +1,30 @@
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import React from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import i18next from 'i18next';
-import { useMutation } from 'react-query';
 
 import { User } from 'utils/types';
 import { emailRegex, passwordRegex } from 'constants/regex';
-import { signUp } from 'services/UsersService';
-import Loading from 'components/Spinner/components/loading';
 
-function SignUpForm() {
+type SignUpFormProps = {
+  onValid: SubmitHandler<User>;
+};
+
+function SignUpForm({ onValid }: SignUpFormProps) {
   const {
     handleSubmit,
     register,
     getValues,
     formState: { errors }
   } = useForm<User>();
-  const [errorMsg, setErrorMsg] = useState('');
-  const { isLoading, isError, mutate } = useMutation((data: User) => signUp(data), {
-    onSuccess: res => {
-      // eslint-disable-next-line no-console
-      console.log('res', res);
-    },
-    onError: () => {
-      setErrorMsg(i18next.t('FormValidations:network'));
-    }
-  });
-  const onSubmit = () => {
-    mutate(getValues());
-  };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <label className="form-label">{i18next.t('SignUp:firstName')}</label>
+    <form onSubmit={handleSubmit(onValid)}>
+      <label htmlFor="firstName" className="form-label">
+        {i18next.t('SignUp:firstName')}
+      </label>
       {errors.firstName && <span className="form-alert">{errors.firstName.message}</span>}
       <input
+        id="firstName"
         className="form-input"
         name="firstName"
         type="text"
@@ -42,9 +33,12 @@ function SignUpForm() {
         })}
       />
 
-      <label className="form-label">{i18next.t('SignUp:lastName')}</label>
+      <label htmlFor="lastName" className="form-label">
+        {i18next.t('SignUp:lastName')}
+      </label>
       {errors.lastName && <span className="form-alert">{errors.lastName.message}</span>}
       <input
+        id="lastName"
         className="form-input"
         name="lastName"
         type="text"
@@ -53,9 +47,12 @@ function SignUpForm() {
         })}
       />
 
-      <label className="form-label">{i18next.t('SignUp:email')}</label>
+      <label htmlFor="email" className="form-label">
+        {i18next.t('SignUp:email')}
+      </label>
       {errors.email && <span className="form-alert">{errors.email.message}</span>}
       <input
+        id="email"
         className="form-input"
         name="email"
         type="text"
@@ -68,9 +65,12 @@ function SignUpForm() {
         })}
       />
 
-      <label className="form-label">{i18next.t('SignUp:password')}</label>
+      <label htmlFor="password" className="form-label">
+        {i18next.t('SignUp:password')}
+      </label>
       {errors.password && <span className="form-alert">{errors.password.message}</span>}
       <input
+        id="password"
         className="form-input"
         name="password"
         type="password"
@@ -83,11 +83,14 @@ function SignUpForm() {
         })}
       />
 
-      <label className="form-label">{i18next.t('SignUp:passwordConfirmation')}</label>
+      <label htmlFor="passwordConfirmation" className="form-label">
+        {i18next.t('SignUp:passwordConfirmation')}
+      </label>
       {errors.passwordConfirmation && (
         <span className="form-alert">{errors.passwordConfirmation.message}</span>
       )}
       <input
+        id="passwordConfirmation"
         className="form-input"
         name="passwordConfirmation"
         type="password"
@@ -99,14 +102,6 @@ function SignUpForm() {
           }
         })}
       />
-
-      {isError && <span className="form-alert">{errorMsg}</span>}
-
-      {isLoading && (
-        <div className="row center full-width">
-          <Loading name="circle" />
-        </div>
-      )}
 
       <button className="form-submit" type="submit">
         {i18next.t('SignUp:signUpButton')}
