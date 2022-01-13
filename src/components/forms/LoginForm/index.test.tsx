@@ -11,10 +11,6 @@ const MAX_REQUIRED_MESSAGES = 2;
 const onValid = jest.fn();
 
 describe('LoginForm component', () => {
-  beforeEach(() => {
-    render(<LoginForm onValid={onValid} />);
-  });
-
   describe('when inputs have not been filled ', () => {
     it('should display the maximum number of required validation messages', async () => {
       // GIVEN
