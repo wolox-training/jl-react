@@ -1,12 +1,11 @@
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { waitFor } from '@testing-library/react';
-import { mount } from 'enzyme';
+import { render, screen, waitFor } from '@testing-library/react';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import { MemoryRouter } from 'react-router-dom';
+import userEvent from '@testing-library/user-event';
 
-import LoginForm from 'components/Forms/LoginForm';
 import { UserCredentials, User } from 'utils/types';
 import { VALID_USER } from 'constants/mock-users';
 
@@ -17,14 +16,9 @@ const server = setupServer(
     const { email, password } = req.body;
 
     if (email === VALID_USER.email && password === VALID_USER.password) {
-      return res(
-        ctx.set('access-token', 'xRmxsCcRsIoZKzpv7x6hog')
-      );
-    } else {
-      return res(
-        ctx.status(401)
-      );
+      return res(ctx.set('access-token', 'xRmxsCcRsIoZKzpv7x6hog'));
     }
+    return res(ctx.status(401));
   })
 );
 const mockHistoryPush = jest.fn();
@@ -36,44 +30,33 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('Login', () => {
-  // eslint-disable-next-line init-declarations
-  let wrapper: any;
   const queryClient = new QueryClient();
 
   beforeAll(() => {
-    wrapper = mount(
+    server.listen();
+  });
+
+  beforeEach(() => {
+    render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter initialEntries={['/']}>
           <Login />
         </MemoryRouter>
       </QueryClientProvider>
     );
-    server.listen();
   });
 
   afterAll(() => {
     server.close();
   });
 
-  it('renders one <LoginForm /> component', () => {
-    expect(wrapper.find(LoginForm)).toHaveLength(1);
-  });
-
   describe('when inputs are valid', () => {
     it('should redirect to /home', async () => {
-      wrapper
-        .find('.form-input')
-        .at(0)
-        .instance().value = VALID_USER.email;
-      wrapper
-        .find('.form-input')
-        .at(1)
-        .instance().value = VALID_USER.password;
+      const submitButton = screen.getByRole('button', { name: /Login:loginButton/ });
 
-      wrapper
-        .find('.form-submit')
-        .hostNodes()
-        .simulate('submit');
+      userEvent.type(screen.getByLabelText('Login:email'), VALID_USER.email);
+      userEvent.type(screen.getByLabelText('Login:password'), VALID_USER.password);
+      userEvent.click(submitButton);
 
       // eslint-disable-next-line max-nested-callbacks
       await waitFor(() => expect(mockHistoryPush).toHaveBeenCalledWith('/home'));
@@ -82,10 +65,9 @@ describe('Login', () => {
 
   describe('when click on signUpButton', () => {
     it('should redirect to / path', async () => {
-      wrapper
-        .find('.button-redirect')
-        .hostNodes()
-        .simulate('click');
+      const signUpButton = screen.getByRole('button', { name: /Login:signUpButton/ });
+
+      userEvent.click(signUpButton);
 
       // eslint-disable-next-line max-nested-callbacks
       await waitFor(() => expect(mockHistoryPush).toHaveBeenCalledWith('/sign_up'));
