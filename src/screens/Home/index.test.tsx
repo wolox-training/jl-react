@@ -25,42 +25,34 @@ describe('Home screen', () => {
   });
 
   describe('WoloxLogo', () => {
-    it('should have a /home link', async () => {
-      // GIVEN
+    it('should have a /home link', () => {
       const link = screen.getByRole('link');
-      
-      // THEN
+
       expect(link).toBeTruthy();
-      expect(link).toHaveAttribute('href', '/home')
+      expect(link).toHaveAttribute('href', '/home');
     });
 
-    it('should display an image', async () => {
-      // GIVEN
+    it('should display an image', () => {
       const img = screen.getByRole('img');
-      
-      // THEN
-      expect(img).toBeTruthy();
-      expect(img).toHaveAttribute('src', logoWoloxImg)
-    });    
+
+      expect(img).toBeInTheDocument();
+      expect(img).toHaveAttribute('src', logoWoloxImg);
+    });
   });
 
   describe('Logout button', () => {
     it('should display a logout button ', () => {
-      // GIVEN
       const logoutButton = screen.getByRole('button');
-  
-      // THEN
-      expect(logoutButton).toBeTruthy();
+
+      expect(logoutButton).toBeInTheDocument();
     });
 
     it('should redirect to / path', async () => {
-      // WHEN
       const logoutButton = screen.getByRole('button');
 
-      // WHEN
       userEvent.click(logoutButton);
 
-      // THEN
+      // eslint-disable-next-line max-nested-callbacks
       await waitFor(() => expect(mockHistoryPush).toHaveBeenCalledWith('/'));
     });
   });
