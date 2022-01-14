@@ -15,7 +15,7 @@ function Home() {
   };
 
   return (
-    <nav className={styles.navBar}>
+    <nav className={`row space-around ${styles.navBar}`}>
       <Link className={styles.logo} to="/home">
         <img className={styles.logoImage} src={logoWoloxImg} alt="Wolox logo" />
       </Link>
