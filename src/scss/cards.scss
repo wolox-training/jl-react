@@ -1,0 +1,12 @@
+.card {
+  @extend .column;
+  background-color: $white-smoke;
+  border-top: 8px solid $deep-sky-blue;
+  padding: 28px 24px 0;
+  width: 100%;
+
+}
+
+.card-small {
+  max-width: 300px;
+}

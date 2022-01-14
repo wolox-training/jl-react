@@ -29,17 +29,17 @@ function SignUp() {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.wrapper}>
-        <div className={styles.card}>
-          <div className={styles.logo} />
+    <div className="container">
+      <div className="wrapper">
+        <div className="card card-small">
+          <div className={`row center ${styles.logo}`} />
           <SignUpForm onValid={onValid} />
           <div>
             <button className="button-redirect" type="button" onClick={onLoginButtonClick}>
               {i18next.t('SignUp:loginButton')}
             </button>
           </div>
-          {isError && <span className="form-alert">{errorMsg}</span>}
+          {isError && <span className="form-alert row center">{errorMsg}</span>}
           {isLoading && (
             <div className="row center full-width">
               <Loading name="circle" />
