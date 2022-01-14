@@ -16,7 +16,7 @@ function Login() {
   const { isLoading, isError, mutate } = useMutation((data: UserCredentials) => login(data), {
     onSuccess: res => {
       // eslint-disable-next-line no-console
-      console.log('access-token: ', res);
+      console.log('access-token: ', res.headers && res.headers['access-token']);
       history.push('/home');
     },
     onError: () => {
