@@ -29,10 +29,10 @@ function SignUp() {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.wrapper}>
-        <div className={styles.card}>
-          <div className={styles.logo} />
+    <div className="container">
+      <div className="wrapper">
+        <div className="card card-small">
+          <div className={`row center ${styles.logo}`} />
           <SignUpForm onValid={onValid} />
           <div>
             <button className="button-redirect" type="button" onClick={onLoginButtonClick}>
