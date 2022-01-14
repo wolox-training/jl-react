@@ -137,3 +137,15 @@
     flex-grow: $i;
   }
 }
+
+.container {
+  @extend .column;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+.wrapper {
+  @extend #{'.row', '.center', '.middle', '.item-1'};
+  width: 100%;
+}
