@@ -3,6 +3,7 @@ import i18next from 'i18next';
 import { useMutation } from 'react-query';
 import { useHistory } from 'react-router-dom';
 
+import api from 'config/api';
 import Loading from 'components/Spinner/components/loading';
 import LoginForm from 'components/Forms/LoginForm';
 import { UserCredentials } from 'utils/types';
@@ -15,8 +16,16 @@ function Login() {
   const history = useHistory();
   const [errorMsg, setErrorMsg] = useState('');
   const { isLoading, isError, mutate } = useMutation((data: UserCredentials) => login(data), {
-    onSuccess: res => {
-      LocalStorageService.setValue('token', res.headers && res.headers['access-token']);
+    onSuccess: ({ headers }) => {
+      const token = headers?.['access-token'] || '';
+      const client = headers?.client || '';
+      const uid = headers?.uid || '';
+      LocalStorageService.setValue('token', token);
+      LocalStorageService.setValue('client', client);
+      LocalStorageService.setValue('uid', uid);
+      api.setHeader('access-token', token);
+      api.setHeader('client', client);
+      api.setHeader('uid', uid);
       history.push('/home');
     },
     onError: () => {
