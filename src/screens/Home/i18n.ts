@@ -2,5 +2,6 @@ import i18next from 'i18next';
 
 i18next.addResources('es', 'Home', {
   logout: 'Logout',
-  logoAlt: 'Wolox logo'
+  logoAlt: 'Wolox logo',
+  bookCoverAlt: 'Wolox book cover'
 });
