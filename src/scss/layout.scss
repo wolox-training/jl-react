@@ -146,6 +146,7 @@
 }
 
 .wrapper {
-  @extend #{'.row', '.center', '.middle', '.item-1'};
+  @extend #{'.row', '.center', '.middle'};
+  flex-grow: 1;
   width: 100%;
 }
