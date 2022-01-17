@@ -1,0 +1,41 @@
+$spacer: 16px !default;
+
+$spacers: (
+  0: 0,
+  1: $spacer,
+  2: ($spacer * 2),
+  3: ($spacer * 3),
+  4: ($spacer * 4),
+  5: ($spacer * 5)
+);
+
+@each $p,
+$abbrev in (margin: m, padding: p) {
+
+  @each $size,
+  $value in $spacers {
+    .#{$abbrev}-#{$size} {
+      #{$p}: $value !important;
+    }
+
+    .#{$abbrev}t-#{$size},
+    .#{$abbrev}y-#{$size} {
+      #{$p}-top: $value !important;
+    }
+
+    .#{$abbrev}r-#{$size},
+    .#{$abbrev}x-#{$size} {
+      #{$p}-right: $value !important;
+    }
+
+    .#{$abbrev}b-#{$size},
+    .#{$abbrev}y-#{$size} {
+      #{$p}-bottom: $value !important;
+    }
+
+    .#{$abbrev}l-#{$size},
+    .#{$abbrev}x-#{$size} {
+      #{$p}-left: $value !important;
+    }
+  }
+}
