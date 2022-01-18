@@ -24,7 +24,7 @@ export type Book = {
   updatedAt: string;
 };
 
-export type BookList = {
+export type BookListResponse = {
   page: Book[];
   count: number;
   totalPages: number;

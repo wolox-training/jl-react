@@ -1,4 +1,4 @@
 import api from 'config/api';
-import { BookList } from 'utils/types';
+import { BookListResponse } from 'utils/types';
 
-export const listBooks = () => api.get<BookList>('/books');
+export const listBooks = () => api.get<BookListResponse>('/books');
