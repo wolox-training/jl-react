@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 import logoWoloxImg from 'assets/LogoWolox.png';
 
@@ -16,11 +17,14 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('Home screen', () => {
+  const queryClient = new QueryClient();
   beforeEach(() => {
     render(
-      <MemoryRouter initialEntries={['/']}>
-        <Home />
-      </MemoryRouter>
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter initialEntries={['/']}>
+          <Home />
+        </MemoryRouter>
+      </QueryClientProvider>
     );
   });
 
