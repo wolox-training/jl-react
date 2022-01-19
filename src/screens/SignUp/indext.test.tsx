@@ -8,11 +8,12 @@ import { MemoryRouter } from 'react-router-dom';
 
 import { User } from 'utils/types';
 import { VALID_USER, USER_PROP_INDEXES } from 'constants/mock-users';
+import { BASE_URL } from 'constants/urls';
 
 import SignUp from '.';
 
 const server = setupServer(
-  rest.post<User, User>(`${process.env.REACT_APP_API_BASE_URL}/users`, (req, res, ctx) => {
+  rest.post<User, User>(`${BASE_URL}/users`, (req, res, ctx) => {
     const { firstName, lastName, email, password, passwordConfirmation } = req.body;
 
     return res(

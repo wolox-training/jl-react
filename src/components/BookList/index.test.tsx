@@ -6,12 +6,11 @@ import { setupServer } from 'msw/node';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { BOOK_LIST } from 'constants/mock-books';
+import { BASE_URL } from 'constants/urls';
 
 import BookList from '.';
 
-const server = setupServer(
-  rest.get(`${process.env.REACT_APP_API_BASE_URL}/books`, (req, res, ctx) => res(ctx.json({ ...BOOK_LIST })))
-);
+const server = setupServer(rest.get(`${BASE_URL}/books`, (req, res, ctx) => res(ctx.json({ ...BOOK_LIST }))));
 
 describe('BookList component', () => {
   const queryClient = new QueryClient();

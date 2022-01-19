@@ -8,11 +8,12 @@ import userEvent from '@testing-library/user-event';
 
 import { UserCredentials, User } from 'utils/types';
 import { VALID_USER } from 'constants/mock-users';
+import { BASE_URL } from 'constants/urls';
 
 import Login from '.';
 
 const server = setupServer(
-  rest.post<UserCredentials, User>(`${process.env.REACT_APP_API_BASE_URL}/users/sign_in`, (req, res, ctx) => {
+  rest.post<UserCredentials, User>(`${BASE_URL}/users/sign_in`, (req, res, ctx) => {
     const { email, password } = req.body;
 
     if (email === VALID_USER.email && password === VALID_USER.password) {
